@@ -1,7 +1,7 @@
 using UnityEngine;
 using EndlessRunner.Shared;
 
-namespace EndlessRunner
+namespace EndlessRunner.Player
 {
     public class PlayerService : BaseMonoSingletonGeneric<PlayerService>
     {

@@ -11,7 +11,6 @@ namespace EndlessRunner.Level
         private Queue<Transform> tileQueue = new();
         private int currentIndex = 1;
         private Transform player;
-        PlayerService serv;
 
         private void Start()
         {
@@ -19,8 +18,7 @@ namespace EndlessRunner.Level
             {
                 SpawnRandomTile();
             }
-            serv = PlayerService.Instance;
-            player = serv.PlayerPos;
+            player = PlayerService.Instance.PlayerPos;
         }
 
         private void Update()
@@ -49,7 +47,7 @@ namespace EndlessRunner.Level
         {
             if (player == null)
             {
-                player = serv.PlayerPos;
+                player = PlayerService.Instance.PlayerPos;
             }
             if (player.position.z > currentIndex * LevelConstants.TILE_LENGTH)
             {
