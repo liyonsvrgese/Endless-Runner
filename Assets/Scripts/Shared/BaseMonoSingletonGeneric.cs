@@ -6,7 +6,7 @@ namespace EndlessRunner.Shared
     {
         private static T instance;
 
-        public static T Instance { get; private set; }
+        public static T Instance { get { return instance; } }
 
         public virtual void Awake()
         {

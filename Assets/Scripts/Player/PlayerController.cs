@@ -4,13 +4,17 @@ namespace EndlessRunner.Player
 {
     public class PlayerController : MonoBehaviour
     {
+        [SerializeField] private float playerTurnSpeed;
+        [SerializeField] private float playerSpeed;
+
         private bool canMove = true;
         private Rigidbody rigidBody;
-        private Vector3 forwardVector = new(0, 0, PlayerConstants.PLAYER_SPEED);
-
+        private Vector3 forwardVector;
+        
         private void Awake()
         {
             rigidBody = GetComponent<Rigidbody>();
+            forwardVector = new(0, 0, playerSpeed);
         }
         private void Update()
         {
@@ -22,7 +26,6 @@ namespace EndlessRunner.Player
         {
             if (canMove)
             {
-
                 //Mobile
                 if (Input.touchCount > 0)
                 {
@@ -65,7 +68,7 @@ namespace EndlessRunner.Player
         public void MovePlayerLeft()
         {
             var clampedPos = transform.position;
-            clampedPos += PlayerConstants.PLAYER_TURN_SPEED * Time.deltaTime * Vector3.left;
+            clampedPos += playerTurnSpeed * Time.deltaTime * Vector3.left;
             clampedPos.x = Mathf.Clamp(clampedPos.x, PlayerConstants.PLAYER_XPOS_MIN, PlayerConstants.PLAYER_XPOS_MAX);
             transform.position = clampedPos;
         }
@@ -73,7 +76,7 @@ namespace EndlessRunner.Player
         public void MovePlayerRight()
         {
             var clampedPos = transform.position;
-            clampedPos += PlayerConstants.PLAYER_TURN_SPEED * Time.deltaTime * Vector3.right;
+            clampedPos += playerTurnSpeed * Time.deltaTime * Vector3.right;
             clampedPos.x = Mathf.Clamp(clampedPos.x, PlayerConstants.PLAYER_XPOS_MIN, PlayerConstants.PLAYER_XPOS_MAX);
             transform.position = clampedPos;         
         }
