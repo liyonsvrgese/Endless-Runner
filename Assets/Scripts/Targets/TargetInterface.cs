@@ -10,6 +10,7 @@ namespace EndlessRunner.Targets
             if(other.CompareTag(PlayerConstants.PLAYER_TAG))
             {
                 OnPlayerHit();
+                Destroy(this.gameObject);
             }
         }
         public abstract void OnPlayerHit();

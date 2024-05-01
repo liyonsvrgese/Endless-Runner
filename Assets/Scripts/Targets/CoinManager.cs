@@ -1,10 +1,19 @@
 ﻿using UnityEngine;
+using EndlessRunner.Player;
+using EndlessRunner.Shared;
 
 namespace EndlessRunner.Targets
 {
     class CoinManager : BaseTarget
     {
         [SerializeField] private float coinRotateSpeed;
+
+        private IPlayerService playerService;
+
+        private void Start()
+        {
+            playerService = PlayerService.Instance;
+        }
         private void Update()
         {
             RotateCoin();
@@ -16,7 +25,11 @@ namespace EndlessRunner.Targets
         }
         public override void OnPlayerHit()
         {
-            Debug.Log("Coin Hit");
+            if (playerService == null)
+            {
+                playerService = PlayerService.Instance;
+            }
+            playerService.AddCoin(GameConstants.COIN_VALUE);
         }
     }
 }

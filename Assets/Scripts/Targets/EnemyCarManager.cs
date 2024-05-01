@@ -1,10 +1,18 @@
 ﻿using UnityEngine;
+using EndlessRunner.Player;
 
 namespace EndlessRunner.Targets
 {
     class EnemyCarManager : BaseTarget
     {
         [SerializeField] private float enemyCarSpeed;
+
+        private IPlayerService playerService;
+
+        private void Start()
+        {
+            playerService = PlayerService.Instance;
+        }
 
         private void Update()
         {
@@ -17,7 +25,11 @@ namespace EndlessRunner.Targets
         }
         public override void OnPlayerHit()
         {
-            Debug.Log("Enemy car hit");
+            if(playerService == null)
+            {
+                playerService = PlayerService.Instance;
+            }
+            playerService.TriggerGameOver();
         }
     }
 }

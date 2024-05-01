@@ -152,3 +152,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 188818623897dc34fa44b06ff3a2df10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinRotateSpeed: 20

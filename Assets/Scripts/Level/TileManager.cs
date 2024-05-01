@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using EndlessRunner.Player;
+using EndlessRunner.Shared;
 
 namespace EndlessRunner.Level
 {
@@ -41,7 +42,7 @@ namespace EndlessRunner.Level
             tileGO.transform.SetParent(this.transform);
             tileQueue.Enqueue(tileGO.transform);
 
-            currentZPos += LevelConstants.TILE_LENGTH; 
+            currentZPos += GameConstants.TILE_LENGTH; 
         }
 
         private void CheckToAddNewTile()
@@ -50,7 +51,7 @@ namespace EndlessRunner.Level
             {
                 player = PlayerService.Instance.PlayerPos;
             }
-            if (player.position.z > currentIndex * LevelConstants.TILE_LENGTH)
+            if (player.position.z > currentIndex * GameConstants.TILE_LENGTH)
             {
                 AddTileToFront();
                 currentIndex++;
@@ -62,7 +63,7 @@ namespace EndlessRunner.Level
             var tileToAdd = tileQueue.Dequeue();
             tileToAdd.position = new Vector3(0, 0, currentZPos);
             tileQueue.Enqueue(tileToAdd);
-            currentZPos+= LevelConstants.TILE_LENGTH;
+            currentZPos+= GameConstants.TILE_LENGTH;
         }
 
     }

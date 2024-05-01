@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using EndlessRunner.Player;
 
 namespace EndlessRunner.UI
 {
@@ -10,9 +11,17 @@ namespace EndlessRunner.UI
         [SerializeField] private TextMeshProUGUI scoreText;
         [SerializeField] private TextMeshProUGUI coinsText;
 
+        private IPlayerService playerService;       
+
+        private void OnEnable()
+        {
+            playerService = PlayerService.Instance;
+            playerService.OnCoinsChange += SetCoinsText;
+            playerService.OnScoreChange += SetScoreText;
+        }
         private void Start()
         {
-            OnGameStart();
+            OnGameStart();        
         }
      
         private void OnGameStart()
@@ -36,6 +45,12 @@ namespace EndlessRunner.UI
         private void SetCoinsText(int value)
         {
             coinsText.text = "Coins : " + value.ToString();
+        }
+
+        private void OnDisable()
+        {
+            playerService.OnCoinsChange -= SetCoinsText;
+            playerService.OnScoreChange -= SetScoreText;
         }
     }
 }
