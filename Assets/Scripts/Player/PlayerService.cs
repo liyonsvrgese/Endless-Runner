@@ -18,7 +18,11 @@ namespace EndlessRunner.Player
         public event Action OnGameOver;
         public event Action<int> OnFuelChange;
         public Transform PlayerPos => playerTransform;
-      
+
+        public int CurrentScore => currentScore;
+
+        public int CurrentCoins => coinsCollected;
+
         private void Start()
         {
             SpawnPlayer();

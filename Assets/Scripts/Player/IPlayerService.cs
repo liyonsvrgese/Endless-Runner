@@ -5,6 +5,9 @@ namespace EndlessRunner.Player
 {
     public interface IPlayerService  
     {
+        int CurrentScore { get; }
+
+        int CurrentCoins { get; }
         Transform PlayerPos { get; }    
 
         event Action<int> OnScoreChange;

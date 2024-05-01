@@ -10,12 +10,23 @@ namespace EndlessRunner.Player
         private bool canMove = true;
         private Rigidbody rigidBody;
         private Vector3 forwardVector;
+        private IPlayerService playerService;
         
         private void Awake()
         {
             rigidBody = GetComponent<Rigidbody>();
             forwardVector = new(0, 0, playerSpeed);
         }
+        private void OnEnable()
+        {
+            playerService = PlayerService.Instance;
+            if (playerService == null)
+            {
+                Debug.LogError("PlayerController: Start- Playerservice is null");
+            }
+            playerService.OnGameOver += HandleGameOver;
+        }
+        
         private void Update()
         {
             ManageInput();
@@ -79,6 +90,16 @@ namespace EndlessRunner.Player
             clampedPos += playerTurnSpeed * Time.deltaTime * Vector3.right;
             clampedPos.x = Mathf.Clamp(clampedPos.x, PlayerConstants.PLAYER_XPOS_MIN, PlayerConstants.PLAYER_XPOS_MAX);
             transform.position = clampedPos;         
+        }
+
+        private void OnDisable()
+        {
+            playerService.OnGameOver -= HandleGameOver;
+        }
+
+        private void HandleGameOver()
+        {
+            canMove = false;
         }
     }
 }

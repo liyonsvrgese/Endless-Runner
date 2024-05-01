@@ -12,6 +12,8 @@ namespace EndlessRunner.UI
         [SerializeField] private GameObject gameOverPanel;
         [SerializeField] private TextMeshProUGUI scoreText;
         [SerializeField] private TextMeshProUGUI coinsText;
+
+        [Header("Fuel Slider")]
         [SerializeField] private Slider fuelSlider;
         [SerializeField] private Image fuelSliderFillImage;
 
@@ -28,6 +30,7 @@ namespace EndlessRunner.UI
             playerService.OnCoinsChange += SetCoinsText;
             playerService.OnScoreChange += SetScoreText;
             playerService.OnFuelChange += SetFuelValue;
+            playerService.OnGameOver += OnGameOver;
         }
         private void Start()
         {
@@ -70,6 +73,7 @@ namespace EndlessRunner.UI
             playerService.OnCoinsChange -= SetCoinsText;
             playerService.OnScoreChange -= SetScoreText;
             playerService.OnFuelChange -= SetFuelValue;
+            playerService.OnGameOver -= OnGameOver;
         }
 
         private void SetFuelValue(int value)
