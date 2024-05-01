@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using EndlessRunner.Player;
+using EndlessRunner.Shared;
 using TMPro;
 
 namespace EndlessRunner.UI
@@ -31,6 +32,17 @@ namespace EndlessRunner.UI
         private void SetCoinText(int value)
         {
             coinText.text = "Coins : " + value;
+        }
+
+        public void RestartScene()
+        {
+            var appManager = ApplicationManager.Instance;
+            if(appManager == null)
+            {
+                Debug.Log("GameOverPanelUI- RestartScene - ApplicationManager is null");
+                return;
+            }
+            appManager.RestartGame();
         }
     }
 }
