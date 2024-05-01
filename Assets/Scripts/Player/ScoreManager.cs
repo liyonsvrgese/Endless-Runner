@@ -1,16 +1,12 @@
 using UnityEngine;
-using EndlessRunner.Player;
 using EndlessRunner.Shared;
 
-namespace EndlessRunner
+namespace EndlessRunner.Player
 {
     public class ScoreManager : MonoBehaviour
     {
         private IPlayerService playerService;
         private int currentScore;
-
-        private int roundedScore;
-
         private float timer = 0f;
 
         private void Start()
@@ -22,8 +18,7 @@ namespace EndlessRunner
         {
             timer += Time.deltaTime * GameConstants.SCORE_RATE;
 
-            roundedScore = Mathf.FloorToInt(timer);
-            if ( roundedScore > currentScore)
+            if (Mathf.FloorToInt(timer) > currentScore)
             {
                 currentScore++;
                 playerService.UpdateScore(currentScore);

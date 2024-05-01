@@ -16,9 +16,16 @@ namespace EndlessRunner.Level
 
         private void Start()
         {
+            var index = 0;
+            ShuffleArray(tilePrefabs);
             for(int i=0;i<noOfTilesOnScreen;i++)
             {
-                SpawnRandomTile();
+                SpawnRandomTile(index);
+                index++;
+                if(index >= tilePrefabs.Length)
+                {
+                    index = 0;
+                }
             }
             player = PlayerService.Instance.PlayerPos;
         }
@@ -27,18 +34,15 @@ namespace EndlessRunner.Level
         {
             CheckToAddNewTile();
         }
-        private void SpawnRandomTile()
+        private void SpawnRandomTile(int index)
         {
             if(tilePrefabs == null || tilePrefabs.Length ==0 )
             {
                 Debug.LogError("Tile prefabs not found");
                 return;
-            }
-            var tileIndex = Random.Range(0, tilePrefabs.Length);
-
+            }           
             var tilePos = new Vector3(0, 0, currentZPos);
-
-            var tileGO = Instantiate(tilePrefabs[tileIndex], tilePos, Quaternion.identity);
+            var tileGO = Instantiate(tilePrefabs[index], tilePos, Quaternion.identity);
             tileGO.transform.SetParent(this.transform);
             tileQueue.Enqueue(tileGO.transform);
 
@@ -66,5 +70,17 @@ namespace EndlessRunner.Level
             currentZPos+= GameConstants.TILE_LENGTH;
         }
 
+        public static void ShuffleArray<T>(T[] array)
+        {
+            int n = array.Length;
+            while (n > 1)
+            {
+                n--;
+                int k = Random.Range(0, n);
+                T temp = array[k];
+                array[k] = array[n];
+                array[n] = temp;
+            }
+        }
     }
 }

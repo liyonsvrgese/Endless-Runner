@@ -7,21 +7,22 @@ namespace EndlessRunner.Player
     public class PlayerService : BaseMonoSingletonGeneric<PlayerService>, IPlayerService
     {
         [SerializeField] private GameObject playerPrefab;
+
         private Transform playerTransform;
+        private int coinsCollected;
+        private int currentScore;
+        private int currentFuel;
 
         public event Action<int> OnScoreChange;
         public event Action<int> OnCoinsChange;
         public event Action OnGameOver;
-
+        public event Action<int> OnFuelChange;
         public Transform PlayerPos => playerTransform;
-
-        private int coinsCollected;
-
-        private int currentScore;
-
+      
         private void Start()
         {
             SpawnPlayer();
+            currentFuel = GameConstants.MAX_FUEL;
         }
 
         private void SpawnPlayer()
@@ -52,6 +53,16 @@ namespace EndlessRunner.Player
         public void TriggerGameOver()
         {
             OnGameOver?.Invoke();
+        }
+
+        public void UpdateFuel(int current)
+        {
+            if(current ==0)
+            {
+                TriggerGameOver();
+            }
+            currentFuel = current;
+            OnFuelChange?.Invoke(currentFuel);
         }
     }
 }

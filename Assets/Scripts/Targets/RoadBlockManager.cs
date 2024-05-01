@@ -1,4 +1,5 @@
-﻿using EndlessRunner.Player;
+﻿using UnityEngine;
+using EndlessRunner.Player;
 
 namespace EndlessRunner.Targets
 {
@@ -14,7 +15,7 @@ namespace EndlessRunner.Targets
         {
             if (playerService == null)
             {
-                playerService = PlayerService.Instance;
+                Debug.LogError("EnemyCarManager : Player Service us null");
             }
             playerService.TriggerGameOver();
         }

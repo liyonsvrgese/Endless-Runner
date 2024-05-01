@@ -1,4 +1,5 @@
-using UnityEngine;
+using EndlessRunner.Player;
+using EndlessRunner.Shared;
 
 namespace EndlessRunner.Targets
 {
@@ -6,7 +7,17 @@ namespace EndlessRunner.Targets
     {
         public override void OnPlayerHit()
         {
-            Debug.Log("Fuel can Hit");
+            if (player == null)
+            {
+                return;
+            }
+
+            var fuelManager = player.GetComponent<PlayerFuelManager>();
+            if(fuelManager != null)
+            {
+                fuelManager.AddFuel(GameConstants.FUEL_CAN_VALUE);
+            }
+            
         }
     }
 }

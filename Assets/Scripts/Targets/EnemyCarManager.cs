@@ -27,7 +27,7 @@ namespace EndlessRunner.Targets
         {
             if(playerService == null)
             {
-                playerService = PlayerService.Instance;
+                Debug.LogError("EnemyCarManager : Player Service us null");
             }
             playerService.TriggerGameOver();
         }

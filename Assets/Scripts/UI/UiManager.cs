@@ -1,6 +1,8 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using EndlessRunner.Player;
+using EndlessRunner.Shared;
 
 namespace EndlessRunner.UI
 {
@@ -10,14 +12,22 @@ namespace EndlessRunner.UI
         [SerializeField] private GameObject gameOverPanel;
         [SerializeField] private TextMeshProUGUI scoreText;
         [SerializeField] private TextMeshProUGUI coinsText;
+        [SerializeField] private Slider fuelSlider;
+        [SerializeField] private Image fuelSliderFillImage;
 
         private IPlayerService playerService;       
 
         private void OnEnable()
-        {
+        {           
             playerService = PlayerService.Instance;
+            if (playerService == null)
+            {
+                Debug.LogError("UiManager- OnEnable : Player Service us null");
+                return;
+            }
             playerService.OnCoinsChange += SetCoinsText;
             playerService.OnScoreChange += SetScoreText;
+            playerService.OnFuelChange += SetFuelValue;
         }
         private void Start()
         {
@@ -29,6 +39,9 @@ namespace EndlessRunner.UI
             gameUi.SetActive(true);
             SetScoreText(0);
             SetCoinsText(0);
+            fuelSlider.maxValue = GameConstants.MAX_FUEL; 
+            fuelSlider.value = GameConstants.MAX_FUEL;
+            
         }
 
         private void OnGameOver()
@@ -49,8 +62,33 @@ namespace EndlessRunner.UI
 
         private void OnDisable()
         {
+            if (playerService == null)
+            {
+                Debug.LogError("UiManager- OnDisable : Player Service us null");
+                return;
+            }
             playerService.OnCoinsChange -= SetCoinsText;
             playerService.OnScoreChange -= SetScoreText;
+            playerService.OnFuelChange -= SetFuelValue;
+        }
+
+        private void SetFuelValue(int value)
+        {
+            fuelSlider.value = value;
+            float normalizedValue = fuelSlider.value / fuelSlider.maxValue;
+
+            Color color;
+
+            if (normalizedValue >= 0.5f) 
+            {
+                color = Color.Lerp(Color.yellow, Color.green, (normalizedValue - 0.5f) * 2f);
+            }
+            else
+            {
+                color = Color.Lerp(Color.red, Color.yellow, normalizedValue * 2f);
+            }       
+            
+            fuelSliderFillImage.color = color;
         }
     }
 }

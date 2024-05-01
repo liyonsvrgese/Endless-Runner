@@ -27,7 +27,7 @@ namespace EndlessRunner.Targets
         {
             if (playerService == null)
             {
-                playerService = PlayerService.Instance;
+                Debug.LogError("CoinManager : Player Service us null");                
             }
             playerService.AddCoin(GameConstants.COIN_VALUE);
         }
