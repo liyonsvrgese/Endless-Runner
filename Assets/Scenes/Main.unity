@@ -671,11 +671,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noOfTilesOnScreen: 5
   tilePrefabs:
-  - {fileID: 1217890102753057665, guid: c0962c3937638f54dafba7023c35f27d, type: 3}
-  - {fileID: 5139922139033880721, guid: 4a9b128caabba9f4c8e1f92931a24121, type: 3}
-  - {fileID: 721622521388478507, guid: 68c435f9b2ea5624ea7175e7499feabb, type: 3}
-  - {fileID: 8184378383288298269, guid: 6b44615bbee43e249842f8a115d9710c, type: 3}
-  - {fileID: 385673196867536156, guid: 1b92a0e5240edb64e9d4739e7b69c6db, type: 3}
+  - {fileID: 7956544765585437433, guid: c0962c3937638f54dafba7023c35f27d, type: 3}
+  - {fileID: 4220415300724024887, guid: 4a9b128caabba9f4c8e1f92931a24121, type: 3}
+  - {fileID: 7956567584344301180, guid: 68c435f9b2ea5624ea7175e7499feabb, type: 3}
+  - {fileID: 7723071853730766098, guid: 6b44615bbee43e249842f8a115d9710c, type: 3}
+  - {fileID: 6009518560259042222, guid: 1b92a0e5240edb64e9d4739e7b69c6db, type: 3}
+  spawnItems:
+  - {fileID: 2683343863930515107, guid: 96e84150a341bb542ae6e0517ffffdd4, type: 3}
+  - {fileID: 2093854541428473852, guid: 7dfba7deb5c0dd14195c297e713f0536, type: 3}
+  - {fileID: 793122648901309167, guid: a2a95b31ada396d44b8a971888c52968, type: 3}
+  - {fileID: 977824498832333103, guid: fae7b68bf88508642abf9c037557492a, type: 3}
 --- !u!1 &1646468605
 GameObject:
   m_ObjectHideFlags: 0

@@ -41,4 +41,5 @@ namespace EndlessRunner.Targets
             playerService.OnGameOver -= HandleGameOver;
         }
     }
+
 }

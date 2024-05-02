@@ -46,6 +46,7 @@ namespace EndlessRunner.Player
                 }
                 playerService.UpdateFuel(currentFuel);
             }
+            timer = currentFuel;
         }
     }
 }

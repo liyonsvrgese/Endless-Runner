@@ -63,6 +63,7 @@ namespace EndlessRunner.Player
         {
             if(current ==0)
             {
+                Debug.Log(Time.time);
                 TriggerGameOver();
             }
             currentFuel = current;

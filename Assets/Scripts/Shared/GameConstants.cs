@@ -14,6 +14,8 @@ namespace EndlessRunner.Shared
 
         public const int FUEL_DECREASE_MULTIPLIER =2;
 
-        public const int FUEL_CAN_VALUE = 5;
+        public const int FUEL_CAN_VALUE = 10;
+
+        public const int MAX_NO_OF_SPAWNS_PER_TILE = 5;
     }
 }
