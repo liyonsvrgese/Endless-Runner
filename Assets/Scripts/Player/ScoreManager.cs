@@ -9,20 +9,41 @@ namespace EndlessRunner.Player
         private int currentScore;
         private float timer = 0f;
 
-        private void Start()
+        private bool isGameRunning = false;
+        private void OnEnable()
         {
             playerService = PlayerService.Instance;
+            playerService.OnStartGame += StartGame;
+            playerService.OnGameOver += OnGameOver;
+        }
+
+        private void OnDisable()
+        {
+            playerService.OnStartGame -= StartGame;
+            playerService.OnGameOver += OnGameOver;
         }
 
         private void Update()
         {
-            timer += Time.deltaTime * GameConstants.SCORE_RATE;
-
-            if (Mathf.FloorToInt(timer) > currentScore)
+            if (isGameRunning)
             {
-                currentScore++;
-                playerService.UpdateScore(currentScore);
+                timer += Time.deltaTime * GameConstants.SCORE_RATE;
+
+                if (Mathf.FloorToInt(timer) > currentScore)
+                {
+                    currentScore++;
+                    playerService.UpdateScore(currentScore);
+                }
             }
+        }
+        private void StartGame()
+        {
+            isGameRunning = true;
+        }
+
+        private void OnGameOver()
+        {
+            isGameRunning = false;
         }
     }
 }

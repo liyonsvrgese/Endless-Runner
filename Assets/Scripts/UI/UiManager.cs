@@ -12,6 +12,7 @@ namespace EndlessRunner.UI
         [SerializeField] private GameObject gameOverPanel;
         [SerializeField] private TextMeshProUGUI scoreText;
         [SerializeField] private TextMeshProUGUI coinsText;
+        [SerializeField] private GameObject startGamePanel;
 
         [Header("Fuel Slider")]
         [SerializeField] private Slider fuelSlider;
@@ -93,6 +94,12 @@ namespace EndlessRunner.UI
             }       
             
             fuelSliderFillImage.color = color;
+        }
+
+        public void StartGame()
+        {
+            startGamePanel.SetActive(false);
+            playerService.TriggerStartGame();
         }
     }
 }

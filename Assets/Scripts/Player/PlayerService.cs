@@ -17,6 +17,8 @@ namespace EndlessRunner.Player
         public event Action<int> OnCoinsChange;
         public event Action OnGameOver;
         public event Action<int> OnFuelChange;
+        public event Action OnStartGame;
+
         public Transform PlayerPos => playerTransform;
 
         public int CurrentScore => currentScore;
@@ -68,6 +70,11 @@ namespace EndlessRunner.Player
             }
             currentFuel = current;
             OnFuelChange?.Invoke(currentFuel);
+        }
+
+        public void TriggerStartGame()
+        {
+            OnStartGame?.Invoke();
         }
     }
 }

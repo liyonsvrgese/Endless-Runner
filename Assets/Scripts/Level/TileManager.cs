@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using EndlessRunner.Targets;
 using System.Collections.Generic;
+using EndlessRunner.Shared;
 
 namespace EndlessRunner.Level
 {
@@ -9,13 +10,8 @@ namespace EndlessRunner.Level
         [SerializeField] private Transform[] SpawnPoints;
 
         private BaseTarget[] targets;
-        private List<BaseTarget> activeItemsList;
-        private void Start()
-        {
-            activeItemsList = new();
-            SpawnItems();
-        }
-
+        private List<BaseTarget> activeItemsList = new();
+       
         public void SpawnItems()
         {
             ClearActiveList();
@@ -56,6 +52,24 @@ namespace EndlessRunner.Level
             var item = Instantiate(targets[index],transform);
             activeItemsList.Add(item);
             item.transform.position = SpawnPoints[pointIndex].position;
+            if(item is CoinManager)
+            {
+                AddExtraCoins(item,index);
+            }
+        }
+        private void AddExtraCoins(BaseTarget item, int prefabIndex)
+        {
+            var current = item;
+            var extraItemsToAdd = Random.Range(0, GameConstants.MAX_ADDED_COINS);
+            for(int i=0;i<extraItemsToAdd;i++)
+            {
+                var newItem= Instantiate(targets[prefabIndex], transform);
+                activeItemsList.Add(newItem);
+                var pos = current.transform.position;
+                pos.z += 2;
+                newItem.transform.position = pos;
+                current = newItem;
+            }
         }
     }
 }

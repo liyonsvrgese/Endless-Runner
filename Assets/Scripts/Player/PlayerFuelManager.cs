@@ -7,27 +7,53 @@ namespace EndlessRunner.Player
         private int currentFuel;
         private float timer;
         private IPlayerService playerService;
+        private bool isGameRunning = false;
 
-        private void Start()
+        private void OnEnable()
         {
             playerService = PlayerService.Instance;
+            playerService.OnStartGame += StartGame;
+            playerService.OnGameOver += OnGameOver;
+        }
+
+        private void OnDisable()
+        {
+            playerService.OnStartGame -= StartGame;
+            playerService.OnGameOver += OnGameOver;
+        }
+
+        private void Start()
+        {           
             currentFuel = GameConstants.MAX_FUEL;
             timer = currentFuel;
         }
 
         private void Update()
         {
-            timer -= Time.deltaTime * GameConstants.FUEL_DECREASE_MULTIPLIER;
+            if (isGameRunning)
+            {
+                timer -= Time.deltaTime * GameConstants.FUEL_DECREASE_MULTIPLIER;
 
-            if(Mathf.FloorToInt(timer) < currentFuel)
-            {               
-                currentFuel--;
-                if(playerService == null)
+                if (Mathf.FloorToInt(timer) < currentFuel)
                 {
-                    Debug.LogError("PlayerFuelManager : Player Service us null");
+                    currentFuel--;
+                    if (playerService == null)
+                    {
+                        Debug.LogError("PlayerFuelManager : Player Service us null");
+                    }
+                    playerService.UpdateFuel(currentFuel);
                 }
-                playerService.UpdateFuel(currentFuel);
             }
+        }
+
+        private void StartGame()
+        {
+            isGameRunning = true;
+        }
+
+        private void OnGameOver()
+        {
+            isGameRunning = false;
         }
 
         public void AddFuel(int value)

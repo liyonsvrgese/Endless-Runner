@@ -17,5 +17,9 @@ namespace EndlessRunner.Shared
         public const int FUEL_CAN_VALUE = 10;
 
         public const int MAX_NO_OF_SPAWNS_PER_TILE = 5;
+
+        public const int MAX_ADDED_COINS = 3;
+
+        public const float OBSTACLE_START_OFFSET = 10;
     }
 }

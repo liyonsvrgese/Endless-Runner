@@ -8,7 +8,9 @@ namespace EndlessRunner.Player
         int CurrentScore { get; }
 
         int CurrentCoins { get; }
-        Transform PlayerPos { get; }    
+        Transform PlayerPos { get; }
+
+        event Action OnStartGame;
 
         event Action<int> OnScoreChange;
 
@@ -25,5 +27,7 @@ namespace EndlessRunner.Player
         void UpdateFuel(int value);
 
         void TriggerGameOver();
+
+        void TriggerStartGame();
     }
 }

@@ -15,20 +15,21 @@ namespace EndlessRunner.Level
         private Queue<TileManager> tileQueue = new();
         private int currentIndex = 1;
         private Transform player;
+        private bool canSpawnItems = false;
 
         public BaseTarget[] SpawnItems => spawnItems;
 
         private void Start()
         {
-            var index = 0;
+            var tilePrefabIndex = 0;
             ShuffleArray(tilePrefabs);
             for(int i=0;i<noOfTilesOnScreen;i++)
             {
-                SpawnRandomTile(index);
-                index++;
-                if(index >= tilePrefabs.Length)
+                SpawnRandomTile(tilePrefabIndex);
+                tilePrefabIndex++;
+                if(tilePrefabIndex >= tilePrefabs.Length)
                 {
-                    index = 0;
+                    tilePrefabIndex = 0;
                 }
             }
             player = PlayerService.Instance.PlayerPos;
@@ -48,9 +49,17 @@ namespace EndlessRunner.Level
             var tilePos = new Vector3(0, 0, currentZPos);
             var tileGO = Instantiate(tilePrefabs[index], tilePos, Quaternion.identity);
             tileGO.transform.SetParent(this.transform);
-            tileQueue.Enqueue(tileGO.GetComponent<TileManager>());
-
+            var tileManager = tileGO.GetComponent<TileManager>();
+            tileQueue.Enqueue(tileManager);
             currentZPos += GameConstants.TILE_LENGTH; 
+            if(canSpawnItems)
+            {
+                tileManager.SpawnItems();
+            }
+            else
+            {
+                canSpawnItems = true;
+            }
         }
 
         private void CheckToAddNewTile()

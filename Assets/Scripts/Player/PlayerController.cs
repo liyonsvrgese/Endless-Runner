@@ -7,7 +7,7 @@ namespace EndlessRunner.Player
         [SerializeField] private float playerTurnSpeed;
         [SerializeField] private float playerSpeed;
 
-        private bool canMove = true;
+        private bool canMove = false;
         private Rigidbody rigidBody;
         private Vector3 forwardVector;
         private IPlayerService playerService;
@@ -25,6 +25,7 @@ namespace EndlessRunner.Player
                 Debug.LogError("PlayerController: Start- Playerservice is null");
             }
             playerService.OnGameOver += HandleGameOver;
+            playerService.OnStartGame += StartGame;
         }
         
         private void Update()
@@ -32,7 +33,10 @@ namespace EndlessRunner.Player
             ManageInput();
         }
 
-
+        private void StartGame()
+        {
+            canMove = true;
+        }
         private void ManageInput()
         {
             if (canMove)
