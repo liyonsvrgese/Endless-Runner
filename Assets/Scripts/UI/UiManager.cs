@@ -35,17 +35,18 @@ namespace EndlessRunner.UI
         }
         private void Start()
         {
-            OnGameStart();        
+            startGamePanel.SetActive(true);
         }
-     
-        private void OnGameStart()
+        public void StartGame()
         {
             gameUi.SetActive(true);
+            startGamePanel.SetActive(false);
             SetScoreText(0);
             SetCoinsText(0);
-            fuelSlider.maxValue = GameConstants.MAX_FUEL; 
+            fuelSlider.maxValue = GameConstants.MAX_FUEL;
             fuelSlider.value = GameConstants.MAX_FUEL;
-            
+            startGamePanel.SetActive(false);
+            playerService.TriggerStartGame();
         }
 
         private void OnGameOver()
@@ -94,12 +95,6 @@ namespace EndlessRunner.UI
             }       
             
             fuelSliderFillImage.color = color;
-        }
-
-        public void StartGame()
-        {
-            startGamePanel.SetActive(false);
-            playerService.TriggerStartGame();
-        }
+        }       
     }
 }

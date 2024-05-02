@@ -32,7 +32,7 @@ namespace EndlessRunner.Level
                     tilePrefabIndex = 0;
                 }
             }
-            player = PlayerService.Instance.PlayerPos;
+            player = PlayerService.Instance.PlayerTransform;
         }
 
         private void Update()
@@ -66,7 +66,7 @@ namespace EndlessRunner.Level
         {
             if (player == null)
             {
-                player = PlayerService.Instance.PlayerPos;
+                player = PlayerService.Instance.PlayerTransform;
             }
             if (player.position.z > currentIndex * GameConstants.TILE_LENGTH)
             {

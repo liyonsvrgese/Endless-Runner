@@ -19,7 +19,7 @@ namespace EndlessRunner.Player
         public event Action<int> OnFuelChange;
         public event Action OnStartGame;
 
-        public Transform PlayerPos => playerTransform;
+        public Transform PlayerTransform => playerTransform;
 
         public int CurrentScore => currentScore;
 

@@ -8,7 +8,7 @@ namespace EndlessRunner.Player
         int CurrentScore { get; }
 
         int CurrentCoins { get; }
-        Transform PlayerPos { get; }
+        Transform PlayerTransform { get; }
 
         event Action OnStartGame;
 
