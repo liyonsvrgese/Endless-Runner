@@ -20,21 +20,15 @@ namespace EndlessRunner.UI
 
         private IPlayerService playerService;       
 
-        private void OnEnable()
-        {           
+        private void Start()
+        {
             playerService = PlayerService.Instance;
             if (playerService == null)
             {
-                Debug.LogError("UiManager- OnEnable : Player Service us null");
+                Debug.LogError("UiManager- OnEnable : Player Service is null");
                 return;
             }
-            playerService.OnCoinsChange += SetCoinsText;
-            playerService.OnScoreChange += SetScoreText;
-            playerService.OnFuelChange += SetFuelValue;
-            playerService.OnGameOver += OnGameOver;
-        }
-        private void Start()
-        {
+            SetEvents(true);
             startGamePanel.SetActive(true);
         }
         public void StartGame()
@@ -69,13 +63,10 @@ namespace EndlessRunner.UI
         {
             if (playerService == null)
             {
-                Debug.LogError("UiManager- OnDisable : Player Service us null");
+                Debug.LogError("UiManager- OnDisable : Player Service is null");
                 return;
             }
-            playerService.OnCoinsChange -= SetCoinsText;
-            playerService.OnScoreChange -= SetScoreText;
-            playerService.OnFuelChange -= SetFuelValue;
-            playerService.OnGameOver -= OnGameOver;
+            SetEvents(false);
         }
 
         private void SetFuelValue(int value)
@@ -95,6 +86,22 @@ namespace EndlessRunner.UI
             }       
             
             fuelSliderFillImage.color = color;
-        }       
+        }      
+        
+        private void SetEvents(bool value)
+        {
+            if(value)
+            {
+                playerService.OnCoinsChange += SetCoinsText;
+                playerService.OnScoreChange += SetScoreText;
+                playerService.OnFuelChange += SetFuelValue;
+                playerService.OnGameOver += OnGameOver;
+                return;
+            }
+            playerService.OnCoinsChange -= SetCoinsText;
+            playerService.OnScoreChange -= SetScoreText;
+            playerService.OnFuelChange -= SetFuelValue;
+            playerService.OnGameOver -= OnGameOver;
+        }
     }
 }
