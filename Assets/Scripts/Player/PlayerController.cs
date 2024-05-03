@@ -11,6 +11,7 @@ namespace EndlessRunner.Player
         private Rigidbody rigidBody;
         private Vector3 forwardVector;
         private IPlayerService playerService;
+        private float timer = 0f;
         
         private void Awake()
         {
@@ -31,8 +32,19 @@ namespace EndlessRunner.Player
         private void Update()
         {
             ManageInput();
+            CheckToIncreaseSpeed();
         }
 
+        private void CheckToIncreaseSpeed()
+        {
+            timer += Time.deltaTime;
+            if(timer > PlayerConstants.TIME_BTW_SPEED_INCREASE)
+            {
+                timer = 0;
+                playerSpeed += PlayerConstants.SPEED_INCREASE_RATE;
+                forwardVector = new(0, 0, playerSpeed);
+            }
+        }
         private void StartGame()
         {
             canMove = true;

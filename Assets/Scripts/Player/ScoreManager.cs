@@ -8,7 +8,6 @@ namespace EndlessRunner.Player
         private IPlayerService playerService;
         private int currentScore;
         private float timer = 0f;
-
         private bool isGameRunning = false;
         private void OnEnable()
         {
